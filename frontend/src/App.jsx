@@ -66,8 +66,8 @@ function App() {
 
 	return (
 		<div
-			className='min-h-screen bg-gradient-to-br
-    from-gray-950 via-blue-950 to-purple-950 flex items-center justify-center relative overflow-hidden'
+	// 		className='min-h-screen bg-gradient-to-br
+    // from-gray-950 via-blue-950 to-purple-950 flex items-center justify-center relative overflow-hidden'
 		>
 			<Routes>
 				<Route

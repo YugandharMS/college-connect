@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
 const StudentAttendance = () => {
-  const [rollNumber, setRollNumber] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showResults, setShowResults] = useState(false);
   const [attendanceData, setAttendanceData] = useState(null);
   
@@ -19,15 +18,16 @@ const StudentAttendance = () => {
   const polarChartInstance = useRef(null);
   const doughnutChartInstance = useRef(null);
   
+  useEffect(() => {
+    fetchAttendance();
+  }, []);
+  
   const fetchAttendance = () => {
-    if (!rollNumber) {
-      alert("Please enter a roll number");
-      return;
-    }
-    
     setLoading(true);
     setShowResults(false);
     
+    // Fixed to only use roll number 6
+    const rollNumber = "6";
     const url = `https://script.google.com/macros/s/AKfycbxCtcHvxpj_uQTDhwwAsE5ItuVqArRerEemFQXWmH1fOJkXkOiffRTHFBf9ZA9TS7QW/exec?mode=fetch&class_code=CSC&subject_name=M3&roll=${encodeURIComponent(rollNumber)}`;
 
     fetch(url)
@@ -301,48 +301,7 @@ const StudentAttendance = () => {
           backgroundClip: 'text'
         }}>
           <h1>Student Attendance Dashboard</h1>
-          <p style={{ color: '#d1d5db' }}>Enter a roll number to view detailed attendance analysis</p>
-        </div>
-        
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '10px',
-          marginBottom: '30px',
-          flexWrap: 'wrap'
-        }}>
-          <input 
-            type="number" 
-            min="1" 
-            placeholder="Enter Roll Number" 
-            value={rollNumber}
-            onChange={(e) => setRollNumber(e.target.value)}
-            style={{
-              padding: '10px',
-              border: '1px solid #4b5563',
-              borderRadius: '5px',
-              fontSize: '16px',
-              maxWidth: '100%',
-              backgroundColor: '#374151',
-              color: '#e5e7eb'
-            }}
-          />
-          <button 
-            onClick={fetchAttendance}
-            style={{
-              padding: '10px 20px',
-              background: 'linear-gradient(to right, #6366f1, #8b5cf6)',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              fontSize: '16px',
-              transition: 'background-color 0.3s',
-              fontWeight: 'bold'
-            }}
-          >
-            Get Attendance
-          </button>
+          <p style={{ color: '#d1d5db' }}>Roll Number: 6</p>
         </div>
         
         {loading && (
@@ -598,4 +557,4 @@ const StudentAttendance = () => {
   );
 }
 
-export default StudentAttendance
+export default StudentAttendance;
